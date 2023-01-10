@@ -46,3 +46,5 @@ const quill = new Quill('#discussion-summary', {
   theme: 'snow',
   placeholder:'Enter discussion points here...'
 });
+
+// TODO -  add powerpoint generator

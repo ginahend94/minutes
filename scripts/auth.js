@@ -1,5 +1,5 @@
 import { auth } from './firebase.js';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 
 // listen for auth status change
 onAuthStateChanged(auth, (user) => {
@@ -47,7 +47,14 @@ const signUp = (() => {
         signUpForm.password.value
       )
         .then((creds) => {
+          const user = auth.currentUser;
           // TODO - add display name and photo
+          updateProfile(user, {
+            displayName: signUpForm.name.value,
+          }).then(() => {
+            console.log('display name added');
+            console.log(user.displayName, user.email);
+          })
           // close and reset form
           M.Modal.getInstance(modal).close();
           signUpForm.reset();
