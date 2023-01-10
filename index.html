@@ -28,12 +28,12 @@
           <a href="/" class="brand-logo">Meeting Minutes</a>
           <a href="#!" class="sidenav-trigger" data-target="sidenav"><i class="material-icons">menu</i></a>
           <ul class="hide-on-med-and-down right">
-            <li><a href="/past-meetings.html">Past Meetings</a></li>
-            <li><a href="/past-attendees.html">Past Attendees</a></li>
-            <li><a href="/settings.html">Settings</a></li>
-            <li><a href="/login.html">Log In</a></li>
-            <li><a href="#log-out">Log Out</a></li>
-            <li><a href="#sign-up" class="modal-trigger">Sign Up</a></li>
+            <li data-logged-in="true"><a href="/past-meetings.html">Past Meetings</a></li>
+            <li data-logged-in="true"><a href="/past-attendees.html">Past Attendees</a></li>
+            <li data-logged-in="true"><a href="/settings.html">Settings</a></li>
+            <li data-logged-in="false"><a href="/login.html">Log In</a></li>
+            <li data-logged-in="true"><a href="#!" class="log-out">Log Out</a></li>
+            <li data-logged-in="false"><a href="#sign-up" class="modal-trigger">Sign Up</a></li>
           </ul>
         </div>
       </nav>
@@ -127,13 +127,20 @@
 
         </form>
       </main>
+      
+      <!-- footer -->
+      <footer>
+        <!-- TODO - add footer -->
+        about
+        help
+      </footer>
 
 <!-- TODO - Add option to turn autofill on and off -->
 
     <!-- sidenav  -->
     <ul class="sidenav sidenav-close" id="sidenav">
       <li><a href="/login.html"><i class="material-icons">login</i> Log In</a></li>
-      <li><a href="#log-out"><i class="material-icons">logout</i> Log Out</a></li>
+      <li><a href="#!" class="log-out"><i class="material-icons">logout</i> Log Out</a></li>
       <li><a href="#sign-up" class="modal-trigger"><i class="material-icons">person_add</i> Sign Up</a></li>
       <li><a href="/past-meetings.html"><i class="material-icons">history</i> Past Meetings</a></li>
       <li><a href="/past-attendees.html"><i class="material-icons">people</i> Past Attendees</a></li>
