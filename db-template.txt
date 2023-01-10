@@ -1,0 +1,23 @@
+- uid
+  - attendees
+    - John Doe: null
+    ...
+    - Jane Smith: null
+  - meetings
+    - meeting id
+      - action items (array)
+        ["Lorem", "Ipsum", "Dolor"]
+      - agenda (array)
+        ["Lorem", "Ipsum", "Dolor", "Sit", "Amet"]
+      - attendees (array)
+        ["John", "Jane", "Jordan"]
+      - date (string): YYYY-MM-DD
+      - discussion summary (string): <p>Inner HTML goes here</p>
+      - next meeting
+        - date (string): YYYY-MM-DD
+        - time (string): HH:MM AM/PM
+      - time (string): HH:MM AM/PM
+      - title (string): Title Here/null
+  - settings
+    - autofill (bool)
+    - dark mode (bool)
