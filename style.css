@@ -1,3 +1,6 @@
 .material-icons {
   vertical-align: middle;
 }
+.no-link {
+  cursor: default !important;
+}

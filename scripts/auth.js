@@ -1,5 +1,5 @@
 import { auth } from './firebase.js';
-import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 
 // sign up
 const signUp = (() => {
@@ -39,6 +39,7 @@ const signUp = (() => {
       )
         .then((credential) => {
           // grab user object
+          // TODO - add display name and photo
           const user = credential.user;
           M.Modal.getInstance(modal).close();
           signUpForm.reset();
@@ -58,13 +59,33 @@ const logOut = (() => {
   const logOutBtns = document.querySelectorAll('.log-out');
   logOutBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      auth.signOut();
-      // TODO - hide btns on logout
+      auth.signOut().then(() => {
+        console.log('logged out')
+        // TODO - hide btns on logout
+      })
+        .catch((err) => {
+        console.log(err)
+      })
     });
   });
 })();
 
 // log in
 const logIn = (() => {
-  
+  const modal = document.querySelector('#log-in');
+  const logInForm = modal.querySelector('form');
+  logInForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // get user info
+    const email = logInForm.email.value;
+    const password = logInForm.password.value;
+    signInWithEmailAndPassword(auth, email, password).then((cred) => {
+      console.log(cred.user);
+      M.Modal.getInstance(modal).close();
+      logInForm.reset();
+    })
+      .catch((err) => {
+        console.log(err);
+    })
+  })
  })();

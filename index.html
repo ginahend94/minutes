@@ -31,8 +31,9 @@
             <li data-logged-in="true"><a href="/past-meetings.html">Past Meetings</a></li>
             <li data-logged-in="true"><a href="/past-attendees.html">Past Attendees</a></li>
             <li data-logged-in="true"><a href="/settings.html">Settings</a></li>
-            <li data-logged-in="false"><a href="#log-in" class="modal-trigger">Log In</a></li>
             <li data-logged-in="true"><a href="#!" class="log-out">Log Out</a></li>
+            <li data-logged-in="true"><a href="#!" class="no-link btn btn-floating teal darken-2 btn-flat tooltipped" data-tooltip="Logged in as [NAME]"><i class="material-icons">person</i></a></li>
+            <li data-logged-in="false"><a href="#log-in" class="modal-trigger">Log In</a></li>
             <li data-logged-in="false"><a href="#sign-up" class="modal-trigger">Sign Up</a></li>
           </ul>
         </div>
@@ -139,12 +140,13 @@
 
     <!-- sidenav  -->
     <ul class="sidenav sidenav-close" id="sidenav">
-      <li><a href="#log-in" class="modal-trigger"><i class="material-icons">login</i> Log In</a></li>
-      <li><a href="#!" class="log-out"><i class="material-icons">logout</i> Log Out</a></li>
-      <li><a href="#sign-up" class="modal-trigger"><i class="material-icons">person_add</i> Sign Up</a></li>
-      <li><a href="/past-meetings.html"><i class="material-icons">history</i> Past Meetings</a></li>
-      <li><a href="/past-attendees.html"><i class="material-icons">people</i> Past Attendees</a></li>
-      <li><a href="/settings.html"><i class="material-icons">settings</i> Settings</a></li>
+      <li data-logged-in="false"><a href="#log-in" class="modal-trigger"><i class="material-icons">login</i> Log In</a></li>
+      <li data-logged-in="false"><a href="#sign-up" class="modal-trigger"><i class="material-icons">person_add</i> Sign Up</a></li>
+      <li data-logged-in="true"><a href="/past-meetings.html"><i class="material-icons">history</i> Past Meetings</a></li>
+      <li data-logged-in="true"><a href="/past-attendees.html"><i class="material-icons">people</i> Past Attendees</a></li>
+      <li data-logged-in="true"><a href="/settings.html"><i class="material-icons">settings</i> Settings</a></li>
+      <li data-logged-in="true"><a href="#!" class="log-out"><i class="material-icons">logout</i> Log Out</a></li>
+      <li data-logged-in="true"><a href="#!" class="no-link"><i class="material-icons">person</i> Logged in as <span id="user-name">[NAME]</span></a></li>
     </ul>
 
     <!-- sign up modal -->

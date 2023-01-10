@@ -2,16 +2,19 @@
 let chipInstances;
 let attendees
 document.addEventListener('DOMContentLoaded', function () {
-  var modalElems = document.querySelectorAll('.modal');
-  var modalInstances = M.Modal.init(modalElems);
-  const sidenavElems = document.querySelectorAll('.sidenav');
-  const sidenavInstances = M.Sidenav.init(sidenavElems);
-  const dateElems = document.querySelectorAll('.datepicker');
-  const dateInstances = M.Datepicker.init(dateElems);
-  const timeElems = document.querySelectorAll('.timepicker');
-  const timeInstances = M.Timepicker.init(timeElems);
-  const chipElems = document.querySelectorAll('.chips');
-  chipInstances = M.Chips.init(chipElems, {
+  const modals = document.querySelectorAll('.modal');
+  // TODO - remove unused consts
+  const modalInstances = M.Modal.init(modals);
+  const tooltips = document.querySelectorAll('.tooltipped');
+  M.Tooltip.init(tooltips);
+  const sidenavs = document.querySelectorAll('.sidenav');
+  const sidenavInstances = M.Sidenav.init(sidenavs);
+  const dates = document.querySelectorAll('.datepicker');
+  const dateInstances = M.Datepicker.init(dates);
+  const times = document.querySelectorAll('.timepicker');
+  const timeInstances = M.Timepicker.init(times);
+  const chips = document.querySelectorAll('.chips');
+  chipInstances = M.Chips.init(chips, {
     data: [
       // TEST
       { // dynamically add user name
@@ -38,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
   attendees = chipInstances[0].chipsData;
 });
 
+// initialize rich text editor
 const quill = new Quill('#discussion-summary', {
   theme: 'snow',
   placeholder:'Enter discussion points here...'
