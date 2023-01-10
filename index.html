@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meeting Minutes</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <!-- TODO - add favicon -->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js" defer></script>
+    <script src="/scripts/auth.js" type="module"></script>
+    <script src="/scripts/firebase.js" type="module" defer></script>
+    <script src="/scripts/script.js" defer></script>
+  </head>
+  <body>
+    <!-- nav -->
+      <nav class="teal"> 
+        <div class="container">
+          <a href="/" class="brand-logo">Meeting Minutes</a>
+          <a href="#!" class="sidenav-trigger" data-target="sidenav"><i class="material-icons">menu</i></a>
+          <ul class="hide-on-med-and-down right">
+            <li><a href="/past-meetings.html">Past Meetings</a></li>
+            <li><a href="/past-attendees.html">Past Attendees</a></li>
+            <li><a href="/settings.html">Settings</a></li>
+            <li><a href="/login.html">Login</a></li>
+            <li><a href="#sign-up" class="modal-trigger">Sign Up</a></li>
+          </ul>
+        </div>
+      </nav>
+      
+      <main class="container">
+        <form class="meeting-info">
+
+          <!-- date/time  -->
+          <section class="section row">
+          <h4>Meeting Information</h4>
+            <div class="input-field col s12">
+              <input type="text" id="meeting-title">
+              <label for="meeting-title">
+                Meeting Title (optional)
+              </label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input type="text" name="date" id="date" class="datepicker" required>
+              <label for="date">Date (required)</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input type="text" name="time" id="time" class="timepicker" required>
+              <label for="time">Time (required)</label>
+            </div>
+          </section>
+
+          <!-- attendees  -->
+          <section class="section row">
+            <h4>Attendees</h4>
+            <div class="chips chips-autocomplete s12"></div>
+          </section>
+
+          <!-- agenda  -->
+          <section class="section row">
+            <h4>Agenda</h4>
+            <div class="input-field col s12">
+              <textarea name="agenda" id="agenda" class="materialize-textarea"></textarea>
+              <label for="agenda">Agenda</label>
+            </div>
+          </section>
+
+          <!-- action items  -->
+          <section class="section row">
+            <h4>Action Items</h4>
+            <div class="input-field col s11">
+              <input type="text" id="action-items-input">
+              <label for="action-items-input">Add action item</label>
+            </div>
+            <button class="btn btn-small col s1"><i class="material-icons">add</i></button>
+            <ul class="action-items col s12">
+              <!-- TEST -->
+              <li class="action-item">
+                <span class="text col s10">John will follow up with the design team about the new website</span>
+                <a href="#!" class="btn-flat teal-text waves-effect waves-teal col s1"><i class="material-icons">edit</i></a>
+                <a href="#!" class="btn-flat red-text text-darken-2 waves-effect waves-red col s1"><i class="material-icons">delete_outline</i></a>
+              </li>
+              <li class="action-item">
+                <span class="text col s10">Jane will look into venues for the company picnic</span>
+                <a href="#!" class="btn-flat teal-text waves-effect waves-teal col s1"><i class="material-icons">edit</i></a>
+                <a href="#!" class="btn-flat red-text text-darken-2 waves-effect waves-red col s1"><i class="material-icons">delete_outline</i></a>
+              </li>
+            </ul>
+          </section>
+
+          <!-- discussion summary  -->
+          <section class="section row">
+            <h4>Discussion Summary</h4>
+            <div id="discussion-summary" style="height:200px"></div>
+          </section>
+
+          <!-- next meeting  -->
+          <section class="section row">
+            <h4>Next Meeting</h4>
+            <div class="input-field col s12 m6">
+              <input type="text" name="date" id="date" class="datepicker">
+              <label for="date">Date (optional)</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input type="text" name="time" id="time" class="timepicker">
+              <label for="time">Time (optional)</label>
+            </div>
+          </section>
+
+          <!-- save buttons -->
+          <section class="section row save">
+            <button class="btn"><i class="material-icons">save</i> Save</button>
+            <a class="btn-flat teal-text waves-effect waves-teal" href="#!"><i class="material-icons">download</i>  PDF</a>
+            <a class="btn-flat teal-text waves-effect waves-teal" href="#!"><i class="material-icons">download</i>  DOCX</a>
+            <a class="btn-flat teal-text waves-effect waves-teal" href="#!"><i class="material-icons">download</i>  TXT</a>
+          </section>
+
+        </form>
+      </main>
+
+<!-- TODO - Add option to turn autofill on and off -->
+
+    <!-- sidenav  -->
+    <ul class="sidenav sidenav-close" id="sidenav">
+      <li><a href="/login.html"><i class="material-icons">login</i> Login</a></li>
+      <li><a href="#sign-up" class="modal-trigger"><i class="material-icons">person_add</i> Sign Up</a></li>
+      <li><a href="/past-meetings.html"><i class="material-icons">history</i> Past Meetings</a></li>
+      <li><a href="/past-attendees.html"><i class="material-icons">people</i> Past Attendees</a></li>
+      <li><a href="/settings.html"><i class="material-icons">settings</i> Settings</a></li>
+    </ul>
+
+    <!-- sign up modal -->
+    <div id="sign-up" class="modal">
+      <div class="modal-content">
+        <h4>Sign Up</h4>
+        <form class="row" id="sign-up-form">
+          <div class="input-field col s12">
+            <input type="text" id="name" name="name" class="validate" required>
+            <label for="name">Name</label>
+            <span class="helper-text" data-error="This field is required"></span>
+          </div>
+          <div class="input-field col s12">
+            <input type="email" id="email" name="email" class="validate" required>
+            <label for="email">Email</label>            
+            <span class="helper-text" data-error="Please enter an email address"></span>
+          </div>
+          <div class="input-field col s12 m6">
+            <input type="password" id="password" name="password" class="validate" minlength="6" required>
+            <label for="password">Password</label>
+            <span class="helper-text" data-error="Password must be at least 6 characters"></span>
+          </div>
+          <div class="input-field col s12 m6">
+            <input type="password" id="password-confirm" class="validate" minlength="6" required>
+            <label for="password-confirm">Confirm Password</label>
+            <span class="helper-text" data-error="Passwords must match"></span>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button class="btn waves-effect sign-up" form="sign-up-form">Sign Up</button>
+          <button class="btn waves-effect grey modal-close">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
