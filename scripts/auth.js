@@ -59,6 +59,12 @@ const logOut = (() => {
   logOutBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       auth.signOut();
+      // TODO - hide btns on logout
     });
   });
 })();
+
+// log in
+const logIn = (() => {
+  
+ })();
