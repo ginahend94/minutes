@@ -1,5 +1,14 @@
 import { auth } from './firebase.js';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+
+// listen for auth status change
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log('user logged in:', user)
+  } else {
+    console.log('user logged out')
+  }
+})
 
 // sign up
 const signUp = (() => {
@@ -37,10 +46,9 @@ const signUp = (() => {
         signUpForm.email.value,
         signUpForm.password.value
       )
-        .then((credential) => {
-          // grab user object
+        .then((creds) => {
           // TODO - add display name and photo
-          const user = credential.user;
+          // close and reset form
           M.Modal.getInstance(modal).close();
           signUpForm.reset();
         })
@@ -59,10 +67,7 @@ const logOut = (() => {
   const logOutBtns = document.querySelectorAll('.log-out');
   logOutBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      auth.signOut().then(() => {
-        console.log('logged out')
-        // TODO - hide btns on logout
-      })
+      auth.signOut()
         .catch((err) => {
         console.log(err)
       })
@@ -80,7 +85,7 @@ const logIn = (() => {
     const email = logInForm.email.value;
     const password = logInForm.password.value;
     signInWithEmailAndPassword(auth, email, password).then((cred) => {
-      console.log(cred.user);
+      // close and reset form
       M.Modal.getInstance(modal).close();
       logInForm.reset();
     })
