@@ -101,23 +101,86 @@ const actionItems = (() => {
   const actionItemsInput = document.querySelector('#action-items-input');
   // grab button
   const btn = document.querySelector('.action-items-button');
-  // create array
-  const actionItemArray = [];
-  // store current ul in session storage
-  const save = () => {
-    sessionStorage.setItem('action-items', actionItemArray);
-  }
+
   // fn
   const addItem = () => {
-
+    if (!actionItemsInput.value) return;
+    const li = generateLi(actionItemsInput.value);
+    actionItemList.append(li);
   }
   // generate li element
   const generateLi = (text) => {
     const li = document.createElement('li');
-    
+    li.classList.add('action-item');
+
+    const itemText = document.createElement('span');
+    itemText.classList.add('text', 'col', 's10');
+    itemText.textContent = text;
+
+    const edit = document.createElement('a');
+    edit.href = '#!';
+    edit.classList.add('btn-flat', 'teal-text', 'waves-effect', 'waves-teal', 'col', 's1');
+    const editIcon = document.createElement('i');
+    editIcon.classList.add('material-icons');
+    editIcon.textContent = 'edit';
+    edit.append(editIcon);
+
+    const del = document.createElement('a');
+    del.href = '#!';
+    del.classList.add('btn-flat', 'red-text', 'text-darken-2', 'waves-effect', 'waves-red', 'col', 's1');
+    const delIcon = document.createElement('i');
+    delIcon.classList.add('material-icons');
+    delIcon.textContent = 'delete_outline';
+    del.append(delIcon);
+
+    edit.addEventListener('click', () => {
+      itemText.contentEditable = true;
+      itemText.focus();
+    })
+
+    text.addEventListener('blur', () => {
+      text.contentEditable = false;
+    })
+
+    del.addEventListener('click', () => {
+      confirm('delete this item?').then((res) => {
+        if (!res) return;
+        document.removeChild(li);
+      })
+    })
+
+    return li;
   }
-  // take input val
-  // add to array
-  // save to storage
-  // update list
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    addItem();
+  });
+  actionItemsInput.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    addItem();
+  })
 })();
+
+// reusable confirm
+const confirm = (text = 'complete this action?') => {
+  // grab modal instance and elements
+  const modal = M.Modal.getInstance(document.querySelector('#confirm'));
+  const confirmButton = document.querySelector('#confirm .yes');
+  const confirmText = document.querySelector('#confirm .confirm-text')
+
+  // set are you sure message to text arg
+  confirmText.textContent = text;
+
+  // open the modal
+  modal.open();
+
+  // return a new promise
+  return new Promise((resolve) => {
+    confirmButton.addEventListener('click', () => {
+      // return true on btn click
+      resolve(true);
+      // close modal
+      modal.close();
+    })
+  })
+}
