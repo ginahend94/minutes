@@ -107,6 +107,7 @@ const actionItems = (() => {
     if (!actionItemsInput.value) return;
     const li = generateLi(actionItemsInput.value);
     actionItemList.append(li);
+    actionItemsInput.value = '';
   }
   // generate li element
   const generateLi = (text) => {
@@ -138,16 +139,26 @@ const actionItems = (() => {
       itemText.focus();
     })
 
-    text.addEventListener('blur', () => {
-      text.contentEditable = false;
+    itemText.addEventListener('blur', () => {
+      itemText.contentEditable = false;
+      if (!itemText.textContent.trim()) {
+        actionItemList.removeChild(li);
+      }
+    })
+
+    itemText.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      itemText.blur();
     })
 
     del.addEventListener('click', () => {
       confirm('delete this item?').then((res) => {
         if (!res) return;
-        document.removeChild(li);
+        actionItemList.removeChild(li);
       })
     })
+
+    li.append(itemText, edit, del);
 
     return li;
   }
