@@ -61,7 +61,7 @@ const agenda = (() => {
     input.classList.add('materialize-textarea');
     input.type = 'text';
     input.id = `agenda-item-${inputs}`;
-    input.required = true;
+    // input.required = true;
     input.disabled = disabled;
     const label = document.createElement('label');
     label.setAttribute('for', input.id);
@@ -87,6 +87,7 @@ const agenda = (() => {
   };
   // have one input with 1. next to it
   const initial = newInput(false);
+  initial.required = true;
   const second = newInput();
   agendaList.append(initial, second);
 

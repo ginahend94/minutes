@@ -8,3 +8,8 @@
 strong {
   font-weight: bold !important;
 }
+
+.section.save > div > a {
+  margin: auto 5px;
+  padding: 0 .5rem
+}

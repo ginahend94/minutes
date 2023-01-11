@@ -3,9 +3,10 @@ const NewMeeting = (() => {
 
   const getChips = () => {
     // get materialize chips instance
-    const chips = M.getInstance(form.querySelector('.chips'));
-    console.log(chips.chipsData);
-    return [...M.getInstance(form.querySelector('.chips')).chipsData];
+    const chips = M.Chips.getInstance(form.querySelector('.chips'));
+    // return array pulling out names from data objects
+    console.log(chips.chipsData.map(a => a.tag))
+    return chips.chipsData.map(a => a.tag);
   };
   const getAgendaItems = () => {
     // grab ol
@@ -23,7 +24,7 @@ const NewMeeting = (() => {
   };
   const getDiscussionSummary = () => {
     // get editor div
-    const editor = form.querySelector('#discussion .ql-editor');
+    const editor = form.querySelector('#discussion-summary .ql-editor');
     // return html as string
     return editor.innerHTML;
   };
