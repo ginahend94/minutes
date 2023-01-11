@@ -3,16 +3,15 @@ let chipInstances;
 let attendees;
 document.addEventListener('DOMContentLoaded', function () {
   const modals = document.querySelectorAll('.modal');
-  // TODO - remove unused consts
-  const modalInstances = M.Modal.init(modals);
+  M.Modal.init(modals);
   const tooltips = document.querySelectorAll('.tooltipped');
   M.Tooltip.init(tooltips);
   const sidenavs = document.querySelectorAll('.sidenav');
-  const sidenavInstances = M.Sidenav.init(sidenavs);
+  M.Sidenav.init(sidenavs);
   const dates = document.querySelectorAll('.datepicker');
-  const dateInstances = M.Datepicker.init(dates);
+  M.Datepicker.init(dates);
   const times = document.querySelectorAll('.timepicker');
-  const timeInstances = M.Timepicker.init(times);
+  M.Timepicker.init(times);
   const chips = document.querySelectorAll('.chips');
   chipInstances = M.Chips.init(chips, {
     data: [
@@ -102,13 +101,16 @@ const actionItems = (() => {
   // grab button
   const btn = document.querySelector('.action-items-button');
 
-  // fn
+  
   const addItem = () => {
+    // if there's no content, retrun
     if (!actionItemsInput.value) return;
     const li = generateLi(actionItemsInput.value);
     actionItemList.append(li);
+    // clear input
     actionItemsInput.value = '';
   }
+
   // generate li element
   const generateLi = (text) => {
     const li = document.createElement('li');
@@ -120,7 +122,8 @@ const actionItems = (() => {
 
     const edit = document.createElement('a');
     edit.href = '#!';
-    edit.classList.add('btn-flat', 'teal-text', 'waves-effect', 'waves-teal', 'col', 's1');
+    edit.classList.add('btn-flat', 'teal-text', 'waves-effect', 'waves-teal', 'col', 's1', 'tooltipped');
+    edit.dataset.tooltip = 'Edit'
     const editIcon = document.createElement('i');
     editIcon.classList.add('material-icons');
     editIcon.textContent = 'edit';
@@ -128,32 +131,40 @@ const actionItems = (() => {
 
     const del = document.createElement('a');
     del.href = '#!';
-    del.classList.add('btn-flat', 'red-text', 'text-darken-2', 'waves-effect', 'waves-red', 'col', 's1');
+    del.classList.add('btn-flat', 'red-text', 'text-darken-2', 'waves-effect', 'waves-red', 'col', 's1', 'tooltipped');
+    del.dataset.tooltip = 'Delete';
     const delIcon = document.createElement('i');
     delIcon.classList.add('material-icons');
     delIcon.textContent = 'delete_outline';
     del.append(delIcon);
 
+    // initialize tooltips
+    M.Tooltip.init(edit);
+    M.Tooltip.init(del);
+
+    // edit text directly on btn click
     edit.addEventListener('click', () => {
       itemText.contentEditable = true;
       itemText.focus();
     })
 
+    // save text on click outside or enter
     itemText.addEventListener('blur', () => {
       itemText.contentEditable = false;
       if (!itemText.textContent.trim()) {
         actionItemList.removeChild(li);
       }
     })
-
     itemText.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter') return;
       itemText.blur();
     })
 
     del.addEventListener('click', () => {
+      // returns bool in promise
       confirm('delete this item?').then((res) => {
         if (!res) return;
+        // remove item
         actionItemList.removeChild(li);
       })
     })
@@ -162,10 +173,12 @@ const actionItems = (() => {
 
     return li;
   }
+
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     addItem();
   });
+
   actionItemsInput.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter') return;
     addItem();
@@ -195,3 +208,5 @@ const confirm = (text = 'complete this action?') => {
     })
   })
 }
+
+
